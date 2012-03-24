@@ -32,6 +32,14 @@ function mailchecker_conf() {
     '#rows' => 3,
   );
 
+  $form['general']['markup'] = array(
+    '#title' => t('Markup'),
+    '#description' => 'Change the message which meets the users.',
+    '#type' => 'textarea',
+    '#rows' => 6,
+    '#default_value' => variable_get('mailchecker_markup'),
+  );
+
   $form['where'] = array(
     '#title' => t('Where'),
     '#type' => 'fieldset',
@@ -63,6 +71,7 @@ function mailchecker_conf_submit($form, &$form_state) {
   variable_set('mailchecker_domains', explode(',', str_replace(' ', '', $form_state['input']['domains'])));
   variable_set('mailchecker_onregister', $form_state['input']['register']);  
   variable_set('mailchecker_onlogin', $form_state['input']['login']);  
+  variable_set('mailchecker_markup', $form_state['input']['markup']);
 
 }
 function mailchecker_form_alter(&$form, &$form_state, $form_id) {
