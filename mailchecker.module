@@ -34,7 +34,7 @@ function mailchecker_conf() {
 
   $form['general']['markup'] = array(
     '#title' => t('Markup'),
-    '#description' => 'Change the message which meets the users.',
+    '#description' => 'Change the message which meets the users. <br/>[corrected-mail] is replaced by the typo corrected mail',
     '#type' => 'textarea',
     '#rows' => 6,
     '#default_value' => variable_get('mailchecker_markup'),
