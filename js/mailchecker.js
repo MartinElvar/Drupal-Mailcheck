@@ -5,6 +5,10 @@ jQuery(function($) {
   $('.mailcheck').blur( function() {
     var currentform = this;
 
+    if(Drupal.settings.mailcheck.show_in_des == true) {
+      $(this).parent().find('.description').addClass('mailcheck-action');
+    }
+
     $(this).mailcheck({
       domains: domains,
       suggested: function(element, suggestion) {
@@ -26,5 +30,4 @@ jQuery(function($) {
         
     }); 
   });
-  
 });
