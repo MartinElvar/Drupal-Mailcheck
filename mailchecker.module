@@ -1,5 +1,22 @@
 <?php
 
+function mailchecker_menu() {
+
+  $items = array();
+
+  $items['admin/config/mailchecker'] = array(
+    'type' => MENU_CALLBACK,
+    'title' =>  'Mailchecker configuration',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mailchecker_conf'),
+    'access arguments' => 'access administration pages',
+  );
+
+  return $items;
+
+}
+function mailchecker_conf() {
+}
 function mailchecker_form_alter(&$form, &$form_state, $form_id) {
 
   // Check if we are on the right form 
