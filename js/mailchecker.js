@@ -7,8 +7,8 @@ jQuery(function($) {
       domains: domains,
       suggested: function(element, suggestion) {
 
-        marktup = Drupal.settings.mailcheck.markup;
-        $('.mailcheck-action').html(markup.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</div>'));     
+        message = Drupal.settings.mailcheck.message;
+        $('.mailcheck-action').html(message.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</div>'));     
 
       },
       empty: function(element) {
