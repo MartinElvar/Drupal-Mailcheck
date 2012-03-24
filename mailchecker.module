@@ -27,7 +27,7 @@ function mailchecker_conf() {
   $form['general']['domains'] = array(
     '#title' => t('Domains'),
     '#description' => t('If we forgot any domains, you can add them here. Seperate with a comma.'),
-    '#value' => variable_get('mailchecker_domains'),
+    '#default_value' => implode(', ', variable_get('mailchecker_domains')),
     '#type' => 'textarea',
     '#rows' => 3,
   );
@@ -40,14 +40,14 @@ function mailchecker_conf() {
   $form['where']['register'] = array(
     '#title' => t('Check email on register form'),
     '#type' => 'checkbox',
-    '#value' => variable_get('mailchecker_onregister'),
+    '#default_value' => variable_get('mailchecker_onregister'),
   );
 
   $form['where']['login'] = array(
     '#title' => t('Check email on login form'),
     '#description' => t('In case you use email instead of username, for login.'),
     '#type' => 'checkbox',
-    '#value' => variable_get('mailchecker_onlogin'),
+    '#default_value' => variable_get('mailchecker_onlogin'),
   );
   $form['submit'] = array(
     '#type' => 'submit',
