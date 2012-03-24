@@ -1,0 +1,6 @@
+
+name = Mailchecker 
+description = Adds a "Did you mean"  notice message, on email form fields.
+core = 7.x
+
+files[] = "mail_correct.module"

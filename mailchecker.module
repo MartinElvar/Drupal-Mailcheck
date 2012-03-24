@@ -1,0 +1,55 @@
+<?php
+
+function mailchecker_form_alter(&$form, &$form_state, $form_id) {
+
+  // Check if we are on the right form 
+  if($form['#form_id'] == 'user_register_form') {
+
+    drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/jquery.mailcheck.min.js');
+    drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/mailcheckeror.js');
+
+
+    $form['account']['mail']['#attributes'] = array('class' => array('mailcheck'));
+    
+    $domains = array('gmail.com', 'hotmail.com'); 
+
+    $js = array('mailcheck' => array('domains' => $domains));
+
+    drupal_add_js($js, 'setting');
+
+    $form['account']['mail']['#suffix'] = '<div class="mailcheck-action"></div>'; 
+  
+  }
+
+}
+
+function mailchecker_field_info() {
+  return array(
+    'mailchecker' =>  array(
+      'label' => t('Mail Check'),
+      'description' => t('Adds a corrector to a mail field, checking for spelling errors.'), 
+      'default_widget' => 'mail_check',
+    )
+  );  
+}
+
+function mailchecker_field_widget_info() {
+  return array(
+    'mail_check' => array(
+      'label' => t('Text field with mail check'),
+      'field types' => array('text', 'email'),
+    ),
+  );
+}
+
+function mailchecker_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  
+  $element[$element['#field_name']] = array(
+    '#type' => 'textfield',
+    '#title' => t($element['#field_name']),
+    '#attributes' => array('class' => array('mailcheck')),
+  );
+
+  return $element;
+}
+
