@@ -57,6 +57,13 @@ function mailchecker_conf() {
   return $form;
 }
 
+function mailchecker_conf_submit($form, &$form_state) {
+
+  // Simply store data.
+  variable_set('mailchecker_domains', explode(',', str_replace(' ', '', $form_state['input']['domains'])));
+  variable_set('mailchecker_onregister', $form_state['input']['register']);  
+  variable_set('mailchecker_onlogin', $form_state['input']['login']);  
+
 }
 function mailchecker_form_alter(&$form, &$form_state, $form_id) {
 
