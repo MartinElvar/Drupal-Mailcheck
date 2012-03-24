@@ -74,27 +74,21 @@ function mailchecker_conf_submit($form, &$form_state) {
   variable_set('mailchecker_markup', $form_state['input']['markup']);
 
 }
-function mailchecker_form_alter(&$form, &$form_state, $form_id) {
-
-  // Check if we are on the right form 
-  if($form['#form_id'] == 'user_register_form') {
-
-    drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/jquery.mailcheck.min.js');
-    drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/mailcheckeror.js');
 
 
     $form['account']['mail']['#attributes'] = array('class' => array('mailcheck'));
     
     $domains = array('gmail.com', 'hotmail.com'); 
 
-    $js = array('mailcheck' => array('domains' => $domains));
+function mailchecker_form_alter(&$form, &$form_state, $form_id) {
 
-    drupal_add_js($js, 'setting');
+  // Check if we are on the right form, also check for settings 
+  if($form_id == 'user_register_form' && variable_get('mailchecker_onregister')) {
 
+    load_mailcheck();
+    $form['account']['mail']['#attributes'] = array('class' => array('mailcheck'));
     $form['account']['mail']['#suffix'] = '<div class="mailcheck-action"></div>'; 
-  
   }
-
 }
 
 function mailchecker_field_info() {
