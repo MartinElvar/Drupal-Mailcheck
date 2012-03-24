@@ -8,8 +8,8 @@ jQuery(function($) {
       suggested: function(element, suggestion) {
 
         message = Drupal.settings.mailcheck.message;
-        $('.mailcheck-action').html(message.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</div>'));     
 
+        $('.mailcheck-action').html(message.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</span>'));     
       },
       empty: function(element) {
         console.log(element);
