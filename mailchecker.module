@@ -75,10 +75,17 @@ function mailchecker_conf_submit($form, &$form_state) {
 
 }
 
+function load_mailcheck() {
+  // Load Files
+  drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/jquery.mailcheck.min.js');
+  drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/mailchecker.js');
 
-    $form['account']['mail']['#attributes'] = array('class' => array('mailcheck'));
-    
-    $domains = array('gmail.com', 'hotmail.com'); 
+  // Inject settings
+  $domains = variable_get('mailchecker_domains');
+  $markup = variable_get('mailchecker_markup');
+  $settings = array('mailcheck' => array('domains' => $domains, 'markup' => $markup));
+  drupal_add_js($settings, 'setting');
+}
 
 function mailchecker_form_alter(&$form, &$form_state, $form_id) {
 
