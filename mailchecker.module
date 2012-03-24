@@ -24,6 +24,13 @@ function mailchecker_conf() {
     '#type' => 'fieldset',
   );
 
+  $form['general']['path'] = array(
+    '#title' => t('Source path'),
+    '#description' => t('The source path to "jquery.mailcheck.min.js".'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('mailchecker_path'),
+  );
+
   $form['general']['domains'] = array(
     '#title' => t('Domains'),
     '#description' => t('If we forgot any domains, you can add them here. Seperate with a comma.'),
@@ -74,14 +81,16 @@ function mailchecker_conf_submit($form, &$form_state) {
   // Simply store data.
   variable_set('mailchecker_domains', explode(',', str_replace(' ', '', $form_state['input']['domains'])));
   variable_set('mailchecker_onregister', $form_state['input']['register']);  
-  variable_set('mailchecker_onlogin', $form_state['input']['login']);  
+  //variable_set('mailchecker_onlogin', $form_state['input']['login']);  
   variable_set('mailchecker_message', $form_state['input']['message']);
-
+  variable_set('mailchecker_show', $form_state['input']['show']);
+  if(!file_exists(DRUPAL_ROOT.$form_state['input']['path'])) drupal_set_message('Source path was not found.', 'error');
+  variable_set('mailchecker_path', $form_state['input']['path']);
 }
 
 function load_mailcheck() {
   // Load Files
-  drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/jquery.mailcheck.min.js');
+  drupal_add_js(variable_get('mailchecker_path'));
   drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/mailchecker.js');
 
   // Inject settings
