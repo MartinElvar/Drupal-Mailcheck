@@ -9,7 +9,7 @@ function mailchecker_menu() {
     'title' =>  'Mailchecker configuration',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mailchecker_conf'),
-    'access arguments' => 'access administration pages',
+    'access arguments' => array('access administration page')
   );
 
   return $items;
