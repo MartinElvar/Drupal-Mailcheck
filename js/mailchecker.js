@@ -6,8 +6,10 @@ jQuery(function($) {
     $(this).mailcheck({
       domains: domains,
       suggested: function(element, suggestion) {
-        console.log(suggestion);
-        $('.mailcheck-action').html('Did you mean, ' + suggestion.full + ' ?');     
+
+        marktup = Drupal.settings.mailcheck.markup;
+        $('.mailcheck-action').html(markup.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</div>'));     
+
       },
       empty: function(element) {
         console.log(element);
