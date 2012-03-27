@@ -21,19 +21,20 @@ jQuery(function($) {
           }, 2000);
         } 
         
+        // Replace token with userdefined message, and insert it.
         message = Drupal.settings.mailcheck.message;
         $('.mailcheck-action').html(message.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</span>'));     
-        
+
+        // Add shake gesture 
         if(Drupal.settings.mailcheck.shake) {
           skaheThatShit($('.mailcheck-action')); 
         }
 
-
         $('.corrected-mail').click(function() {
-
+          // Remove message 
           $(".mailcheck-action").html("");
+          // Replace typo with suggestion
           $(currentform).val(suggestion.full);
-    
         });
  
       },
@@ -53,15 +54,12 @@ jQuery(function($) {
     });
 
     // Then animate
-
     $(el).animate({opacity: 0.25}, 100);
-    $(el).animate({left: '-=10'},100); //these 4 lines
-    $(el).animate({left: '+=20'},100); //are the main
-    $(el).animate({left: '-=20'},100); //code that cause
-    $(el).animate({left: '+=10'},100); //the shaking
+    $(el).animate({left: '-=10'},100); 
+    $(el).animate({left: '+=20'},100);
+    $(el).animate({left: '-=20'},100);
+    $(el).animate({left: '+=10'},100);
     $(el).animate({opacity: 1.00}, 170);
-
-    // bring back settings
   } 
 
 });
