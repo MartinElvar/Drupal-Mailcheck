@@ -73,7 +73,7 @@ function mailchecker_conf() {
     '#title' => t('Shake'),
     '#description' => t('Shake the message, on typo.'),
     '#type' => 'checkbox',
-    '#default_value' => variable_get('mailchecker_lock'),
+    '#default_value' => variable_get('mailchecker_shake'),
   );
 
   $form['regform'] = array(
@@ -87,7 +87,7 @@ function mailchecker_conf() {
     '#default_value' => variable_get('mailchecker_onregister'),
   );
 
-  $form['regform']['lock'] = array(
+  $form['regform']['reglock'] = array(
     '#title' => t('Submit Lock'),
     '#description' => t('Disable submit button for one second, when a typo occurs'),
     '#type' => 'checkbox',
@@ -113,15 +113,24 @@ function mailchecker_conf() {
 }
 
 function mailchecker_conf_submit($form, &$form_state) {
+  // Save general settings
 
-  // Simply store data.
+  // Set error if path is invalid
+  if(!file_exists(DRUPAL_ROOT.$form_state['input']['path'])) drupal_set_message('Source path was not found.', 'error');
+  variable_set('mailchecker_path', $form_state['input']['path']);
+
   variable_set('mailchecker_domains', explode(',', str_replace(' ', '', $form_state['input']['domains'])));
-  variable_set('mailchecker_onregister', $form_state['input']['register']);  
   //variable_set('mailchecker_onlogin', $form_state['input']['login']);  
   variable_set('mailchecker_message', $form_state['input']['message']);
   variable_set('mailchecker_show', $form_state['input']['show']);
-  if(!file_exists(DRUPAL_ROOT.$form_state['input']['path'])) drupal_set_message('Source path was not found.', 'error');
-  variable_set('mailchecker_path', $form_state['input']['path']);
+
+  // Save gestures
+  variable_set('mailchecker_lock', $form_state['input']['lock']);
+  variable_set('mailchecker_shake', $form_state['input']['shake']);
+
+  // Save register form settings
+  variable_set('mailchecker_onregister', $form_state['input']['register']);  
+  variable_set('mailchecker_regform_lock', $form_state['input']['reglock']);  
 }
 
 function load_mailcheck($show_in_des = FALSE) {
@@ -136,7 +145,11 @@ function load_mailcheck($show_in_des = FALSE) {
     'domains' => $domains,
     'message' => $markup,
     'show_in_des' => $show_in_des,
+    'regform_lock' => variable_get('mailchecker_regform_lock'),
+    'lock' => variable_get('mailchecker_lock'),
+    'shake' => variable_get('mailchecker_shake'),
   ));
+
   drupal_add_js($settings, 'setting');
 }
 
