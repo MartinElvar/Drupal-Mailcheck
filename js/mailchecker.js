@@ -1,6 +1,10 @@
 jQuery(function($) {
 
   var domains = Drupal.settings.mailcheck['domains'];
+  // Only add once
+  if(Drupal.settings.mailcheck.show_in_des == true) {
+    $('.mailcheck').parent().find('.description').prepend('<div class="mailcheck-action"></div>');
+  }
 
   $('.mailcheck').blur( function() {
     var currentform = this;
@@ -9,9 +13,7 @@ jQuery(function($) {
       domains: domains,
       suggested: function(element, suggestion) {
 
-        if(Drupal.settings.mailcheck.show_in_des == true) {
-          $(this).parent().find('.description').prepend('<div class="mailcheck-action"></div>');
-        }
+        
 
         message = Drupal.settings.mailcheck.message;
         $('.mailcheck-action').html(message.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</span>'));     
@@ -20,9 +22,10 @@ jQuery(function($) {
           skaheThatShit($('.mailcheck-action')); 
         }
 
+
         $('.corrected-mail').click(function() {
-    
-          $(this).parent().html("");
+
+          $(".mailcheck-action").html("");
           $(currentform).val(suggestion.full);
     
         });
