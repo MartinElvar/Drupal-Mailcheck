@@ -12,9 +12,15 @@ jQuery(function($) {
     $(this).mailcheck({
       domains: domains,
       suggested: function(element, suggestion) {
-
         
-
+        // Add lock gesture
+        if(Drupal.settings.mailcheck.lock) {
+          $('.mailcheck').closest('form').find('input[type="submit"]').click(function() {return false});
+          setTimeout(function() {
+            jQuery('#edit-submit').unbind('click');
+          }, 2000);
+        } 
+        
         message = Drupal.settings.mailcheck.message;
         $('.mailcheck-action').html(message.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</span>'));     
         
