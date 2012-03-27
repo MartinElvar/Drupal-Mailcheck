@@ -137,7 +137,7 @@ function mailchecker_conf_submit($form, &$form_state) {
   variable_set('mailchecker_conf', $conf);
 }
 
-function load_mailcheck($show_in_des = FALSE) {
+function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
   // Load Files
   drupal_add_js(variable_get('mailchecker_path'));
   drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/mailchecker.js');
@@ -148,7 +148,7 @@ function load_mailcheck($show_in_des = FALSE) {
     'domains' => $conf['domains'],
     'message' => $conf['message'],
     'show_in_des' => $show_in_des,
-    'lock' => $conf['lock'],
+    'lock' => $lock,
     'shake' => $conf['shake'],
   ));
 
@@ -172,8 +172,7 @@ function mailchecker_form_alter(&$form, &$form_state, $form_id) {
       $form['account']['mail']['#suffix'] = '<div class="mailcheck-action"></div>'; 
     }
 
-
-    load_mailcheck(isset($in_des));
+    load_mailcheck(isset($in_des), $conf['register']['lock']);
   }
 }
 
