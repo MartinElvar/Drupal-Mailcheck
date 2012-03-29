@@ -1,0 +1,33 @@
+/* CSS Document */
+
+/* Description styles */
+
+.description > .mailcheck-action {
+  color: #B9362D;  
+}
+
+.description > .mailcheck-action > .corrected-mail {
+  font-style: italic  ;
+  font-weight: bold;
+  color: #3458B9;
+  font-size: inherit; 
+  cursor: pointer;
+}
+
+/* Prefix & Suffix */
+
+.mc-suffix,
+.mc-prefix {
+  color: #B9362D;  
+  font-size: 12px;
+}
+
+.mc-suffix > .corrected-mail,
+.mc-prefix > .corrected-mail {
+  font-style: italic  ;
+  font-weight: bold;
+  color: #3458B9;
+  font-size: inherit; 
+  cursor: pointer;
+}
+
