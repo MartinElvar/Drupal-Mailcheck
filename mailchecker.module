@@ -51,6 +51,14 @@ function mailchecker_conf() {
     '#default_value' => $default_conf['message'],
   );
 
+  if(module_exists('webform')) {
+    $form['general']['webform'] = array(
+      '#title' => t('Mailchecker on webform'),
+      '#type' => 'checkbox',
+      '#default_value' => $default_conf['webform'],
+    );
+  }
+
   $form['general']['show_type'] = array(
     '#title' => t('Show message in'),
     '#type' => 'select',
@@ -128,6 +136,7 @@ function mailchecker_conf_submit($form, &$form_state) {
   $conf['domains'] = explode(',', str_replace(' ', '', $form_state['input']['domains']));
   //variable_set('mailchecker_onlogin', $form_state['input']['login']);  
   $conf['message'] = $form_state['input']['message'];
+  $conf['webform'] = $form_state['input']['webform'];
   $conf['show_type'] = $form_state['input']['show_type'];
 
   // Save gestures
@@ -177,7 +186,7 @@ function mailchecker_form_alter(&$form, &$form_state, $form_id) {
   // Check if we are on a webform email field
   $formInArr = explode("_", $form_id);
 
-  if($formInArr[0] == 'webform') {
+  if($formInArr[0] == 'webform' && $conf['webform']) {
 
     foreach($form['submitted'] as &$newform) {
       
