@@ -12,6 +12,7 @@ jQuery(function($) {
 
   $('.mailcheck').blur( function() {
     var currentform = this;
+    var cfAction = $(currentform).parent().find('.mailcheck-action');
 
     $(this).mailcheck({
       domains: domains,
@@ -27,16 +28,17 @@ jQuery(function($) {
         
         // Replace token with userdefined message, and insert it.
         message = Drupal.settings.mailcheck.message;
-        $('.mailcheck-action').html(message.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</span>'));     
+        $(cfAction).html(message.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</span>'));
+        console.log(currentform)
 
         // Add shake gesture 
         if(Drupal.settings.mailcheck.shake) {
-          skaheThatShit($('.mailcheck-action')); 
+          skaheThatShit(cfAction);
         }
 
-        $('.corrected-mail').click(function() {
+        $(cfAction).find('.corrected-mail').click(function() {
           // Remove message 
-          $(".mailcheck-action").html("");
+          $(cfAction).html("");
           // Replace typo with suggestion
           $(currentform).val(suggestion.full);
         });
