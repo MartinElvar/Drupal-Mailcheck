@@ -208,6 +208,15 @@ function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
 }
 
 /**
+ * return an array with all the fields that are not an array
+ * @author Jesús Sánchez Balsera <jsbalsera@gmail.com>
+ * @return string physical directory where Drupal is installed
+ */
+function _helper_get_base_dir() {
+  return (str_replace('//', '/', $_SERVER['DOCUMENT_ROOT'] . base_path()));
+}
+
+/**
  * Implements hook_form_alter().
  */
 
