@@ -228,12 +228,16 @@ function mailchecker_field_widget_info() {
 }
 
 function mailchecker_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-  
+  $conf = variable_get('mailchecker_conf');
+
   $element[$element['#field_name']] = array(
     '#type' => 'textfield',
     '#title' => t($element['#field_name']),
     '#attributes' => array('class' => array('mailcheck')),
+    '#prefix' => '<div class="mc-prefix"> </div>',
   );
+
+  load_mailcheck(FALSE, $conf['lock']);
 
   return $element;
 }
