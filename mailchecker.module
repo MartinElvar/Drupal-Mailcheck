@@ -135,6 +135,7 @@ function mailchecker_conf_submit($form, &$form_state) {
   $conf['register']['lock'] = $form_state['input']['reglock'];
 
   variable_set('mailchecker_conf', $conf);
+  drupal_set_message("Configuration saved", "status");
 }
 
 function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
@@ -186,7 +187,6 @@ function mailchecker_form_alter(&$form, &$form_state, $form_id) {
 
       load_mailcheck(isset($in_des), $conf['register']['lock']);
     }
-
   }    
 
   // Check if we are on the right form, also check for settings 
