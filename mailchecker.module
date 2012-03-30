@@ -161,8 +161,11 @@ function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
 }
 
 function mailchecker_form_alter(&$form, &$form_state, $form_id) {
-
   
+  // Load config
+  $conf = variable_get('mailchecker_conf');
+
+  // Check if we are on a webform email field
   $formInArr = explode("_", $form_id);
 
   if($formInArr[0] == 'webform') {
@@ -170,8 +173,6 @@ function mailchecker_form_alter(&$form, &$form_state, $form_id) {
     foreach($form['submitted'] as &$newform) {
       
       if($newform['#type'] != "webform_email") continue;
-
-      $conf = variable_get('mailchecker_conf');
 
       $newform['#attributes'] = array('class' => array('mailcheck'));
       $show_type = $conf['show_type'];
@@ -189,9 +190,7 @@ function mailchecker_form_alter(&$form, &$form_state, $form_id) {
   }    
 
   // Check if we are on the right form, also check for settings 
-  if($form_id == 'user_register_form' && variable_get('mailchecker_onregister')) {
-
-    $conf = variable_get('mailchecker_conf');
+  if($form_id == 'user_register_form' && $conf['register']['show']) {
 
     $form['account']['mail']['#attributes'] = array('class' => array('mailcheck'));
     $show_type = $conf['show_type'];
