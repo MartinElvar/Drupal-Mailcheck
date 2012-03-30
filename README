@@ -1,7 +1,7 @@
 Mailchecker!
 =========================
 
-The mailcheck jQuery plugin now takes its leap to Drupal 7, with Mailchecker. 
+The mailcheck jQuery plugin now takes its leap to Drupal 6, with Mailchecker. 
 
 
 What is it good for?
@@ -12,7 +12,7 @@ Mailchecker implements mailcheck.js (https://github.com/Kicksend/mailcheck) with
 
 Simply put, Mailchecker checks the email form for typos, say the user writes in user@gmaul.com Mailchecker will suggest user@gmail.com.
 
-Demo site to come.
+Based up in Mailchecker plugin for Drupal 7 (https://github.com/RiverDonkey/Mailchecker) by Martin Elvar Jensen (https://github.com/RiverDonkey)
 
 Drupal features
 ------------------------
