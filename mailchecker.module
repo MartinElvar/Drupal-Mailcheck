@@ -182,7 +182,7 @@ function mailchecker_form_alter(&$form, &$form_state, $form_id) {
       }elseif($show_type == 1) {
         $in_des = TRUE;
       }else {
-        $form['account']['mail']['#suffix'] = '<div class="mc-suffix mailcheck-action"></div>';
+        $newform['#suffix'] = '<div class="mc-suffix mailcheck-action"></div>';
       }
 
       load_mailcheck(isset($in_des), $conf['register']['lock']);
