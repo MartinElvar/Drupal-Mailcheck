@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Implements hook_menu().
+ */
+
 function mailchecker_menu() {
 
   $items = array();
@@ -160,6 +164,10 @@ function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
     drupal_add_js($settings, 'setting');
   }
 }
+
+/**
+ * Implements hook_form_alter().
+ */
 
 function mailchecker_form_alter(&$form, &$form_state, $form_id) {
   
