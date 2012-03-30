@@ -138,25 +138,55 @@ function mailchecker_conf_submit($form, &$form_state) {
 }
 
 function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
-  // Load Files
-  drupal_add_js(variable_get('mailchecker_path'));
-  drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/mailchecker.js');
-  drupal_add_css(drupal_get_path('module', 'mailchecker') . '/css/mailchecker.css');
+  static $loaded = FALSE;
 
-  // Inject settings
-  $conf = variable_get('mailchecker_conf');
-  $settings = array('mailcheck' => array(
-    'domains' => $conf['domains'],
-    'message' => $conf['message'],
-    'show_in_des' => $show_in_des,
-    'lock' => $lock,
-    'shake' => $conf['shake'],
-  ));
+  if(!$loaded) {
+    // Load Files
+    drupal_add_js(variable_get('mailchecker_path'));
+    drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/mailchecker.js');
+    drupal_add_css(drupal_get_path('module', 'mailchecker') . '/css/mailchecker.css');
 
-  drupal_add_js($settings, 'setting');
+    // Inject settings
+    $conf = variable_get('mailchecker_conf');
+    $settings = array('mailcheck' => array(
+      'domains' => $conf['domains'],
+      'message' => $conf['message'],
+      'show_in_des' => $show_in_des,
+      'lock' => $lock,
+      'shake' => $conf['shake'],
+    ));
+
+    drupal_add_js($settings, 'setting');
+  }
 }
 
 function mailchecker_form_alter(&$form, &$form_state, $form_id) {
+
+  
+  $formInArr = explode("_", $form_id);
+
+  if($formInArr[0] == 'webform') {
+
+    foreach($form['submitted'] as &$newform) {
+      
+      if($newform['#type'] != "webform_email") continue;
+
+      $conf = variable_get('mailchecker_conf');
+
+      $newform['#attributes'] = array('class' => array('mailcheck'));
+      $show_type = $conf['show_type'];
+      if($show_type == 0) {
+        $newform['#prefix'] = '<div class="mc-prefix mailcheck-action"></div>';
+      }elseif($show_type == 1) {
+        $in_des = TRUE;
+      }else {
+        $form['account']['mail']['#suffix'] = '<div class="mc-suffix mailcheck-action"></div>';
+      }
+
+      load_mailcheck(isset($in_des), $conf['register']['lock']);
+    }
+
+  }    
 
   // Check if we are on the right form, also check for settings 
   if($form_id == 'user_register_form' && variable_get('mailchecker_onregister')) {
