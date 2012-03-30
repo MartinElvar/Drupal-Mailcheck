@@ -3,7 +3,11 @@ jQuery(function($) {
   var domains = Drupal.settings.mailcheck['domains'];
   // Only add once
   if(Drupal.settings.mailcheck.show_in_des == true) {
-    $('.mailcheck').parent().find('.description').prepend('<div class="mailcheck-action"></div>');
+    // If there aren't any description, create a empty one. 
+    if(!$('.mailcheck').parent().find('.description').length) {
+      $('.mailcheck').parent().append('<div class="description"> </div>');
+      $('.mailcheck').parent().find('.description').prepend('<div class="mailcheck-action"></div>');
+    }
   }
 
   $('.mailcheck').blur( function() {
@@ -17,7 +21,7 @@ jQuery(function($) {
         if(Drupal.settings.mailcheck.lock) {
           $('.mailcheck').closest('form').find('input[type="submit"]').click(function() {return false});
           setTimeout(function() {
-            jQuery('#edit-submit').unbind('click');
+            $('#edit-submit').unbind('click');
           }, 2000);
         } 
         
