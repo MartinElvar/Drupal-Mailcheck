@@ -155,8 +155,10 @@ function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
   static $loaded = FALSE;
 
   if(!$loaded) {
+
+    $conf = variable_get('mailchecker_conf');
     // Load Files
-    drupal_add_js(variable_get('mailchecker_path'));
+    drupal_add_js(base_path() . $conf['path']);
     drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/mailchecker.js');
     drupal_add_css(drupal_get_path('module', 'mailchecker') . '/css/mailchecker.css');
 
@@ -171,6 +173,7 @@ function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
     ));
 
     drupal_add_js($settings, 'setting');
+    $loaded = TRUE;
   }
 }
 
