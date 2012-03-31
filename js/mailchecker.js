@@ -20,16 +20,15 @@ jQuery(function($) {
         
         // Add lock gesture
         if(Drupal.settings.mailcheck.lock) {
-          $('.mailcheck').closest('form').find('input[type="submit"]').click(function() {return false});
+          $(currentform).closest('form').find('input[type="submit"]').click(function() {return false});
           setTimeout(function() {
-            $('#edit-submit').unbind('click');
+            $(currentform).closest('form').find('input[type="submit"]').unbind('click');
           }, 2000);
         } 
         
         // Replace token with userdefined message, and insert it.
         message = Drupal.settings.mailcheck.message;
         $(cfAction).html(message.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</span>'));
-        console.log(currentform)
 
         // Add shake gesture 
         if(Drupal.settings.mailcheck.shake) {
@@ -45,7 +44,7 @@ jQuery(function($) {
  
       },
       empty: function(element) {
-        console.log(element);
+        // Do we really need this? 
       }
         
     }); 
