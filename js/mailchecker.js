@@ -6,8 +6,8 @@ jQuery(function($) {
     // If there aren't any description, create a empty one. 
     if(!$('.mailcheck').parent().find('.description').length) {
       $('.mailcheck').parent().append('<div class="description"> </div>');
-      $('.mailcheck').parent().find('.description').prepend('<div class="mailcheck-action"></div>');
     }
+    $('.mailcheck').parent().find('.description').prepend('<div class="mailcheck-action"></div>');
   }
 
   $('.mailcheck').blur( function() {
