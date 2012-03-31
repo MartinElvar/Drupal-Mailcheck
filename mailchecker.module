@@ -130,7 +130,10 @@ function mailchecker_conf_submit($form, &$form_state) {
   $conf = array();
 
   // Set error if path is invalid
-  if(!file_exists(DRUPAL_ROOT.$form_state['input']['path'])) drupal_set_message('Source path was not found.', 'error');
+  if(!file_exists(DRUPAL_ROOT. base_path() . $form_state['input']['path'])) { 
+    drupal_set_message('Source path was not found.', 'error'); 
+  }
+
   $conf['path'] = $form_state['input']['path'];
 
   $conf['domains'] = explode(',', str_replace(' ', '', $form_state['input']['domains']));
