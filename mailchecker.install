@@ -16,7 +16,7 @@ function mailchecker_install() {
   $conf['show_type'] = 1;
 
   // Gestures
-  $conf['lock'] = FALSE; 
+  $conf['lock'] = FALSE;
   $conf['shake'] = FALSE;
 
   // Register form

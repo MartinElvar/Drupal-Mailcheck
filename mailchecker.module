@@ -3,24 +3,27 @@
 /**
  * Implements hook_menu().
  */
-
 function mailchecker_menu() {
-
   $items = array();
 
-  $items['admin/config/mailchecker'] = array(
-    'type' => MENU_CALLBACK,
+  $items['admin/settings/mailchecker'] = array(
     'title' =>  'Mailchecker configuration',
+    'description' => 'Adjust mailchecker settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mailchecker_conf'),
-    'access arguments' => array('access administration page')
+    'access arguments' => array('access administration page'),
   );
 
   return $items;
 }
 
+/**
+ * Settings form definition
+ * @return type 
+ */
 function mailchecker_conf() {
-  $default_conf = variable_get('mailchecker_conf');
+  $default_conf = variable_get('mailchecker_conf', array());
+   
   $form = array();
   
   $form['general'] = array(
@@ -32,7 +35,8 @@ function mailchecker_conf() {
     '#title' => t('Source path'),
     '#description' => t('The source path to "jquery.mailcheck.min.js".'),
     '#type' => 'textfield',
-    '#default_value' => $default_conf['path'],  
+    '#default_value' => $default_conf['path'],
+    '#required' => TRUE,
   );
 
   $form['general']['domains'] = array(
@@ -41,14 +45,16 @@ function mailchecker_conf() {
     '#default_value' => implode(', ', $default_conf['domains']),
     '#type' => 'textarea',
     '#rows' => 3,
+    '#required' => TRUE,
   );
 
   $form['general']['message'] = array(
     '#title' => t('Message'),
-    '#description' => 'Change the message which meets the users. <br/>[corrected-mail] is replaced by the typo corrected mail',
+    '#description' => t('Change the message which meets the users. <br/>[corrected-mail] is replaced by the typo corrected mail'),
     '#type' => 'textarea',
     '#rows' => 6,
     '#default_value' => $default_conf['message'],
+    '#required' => TRUE,
   );
 
   if(module_exists('webform')) {
@@ -63,9 +69,9 @@ function mailchecker_conf() {
     '#title' => t('Show message in'),
     '#type' => 'select',
     '#options' => array(
-      0 => 'Prefix',
-      1 => 'Desciprion',
-      2 => 'Suffix',
+      0 => t('Prefix'),
+      1 => t('Description'),
+      2 => t('Suffix'),
     ),
     '#default_value' => $default_conf['show_type'],
   );
@@ -88,7 +94,7 @@ function mailchecker_conf() {
     '#type' => 'checkbox',
     '#default_value' => $default_conf['shake'],
   );
-
+  
   $form['regform'] = array(
     '#title' => t('Register form'),
     '#type' => 'fieldset',
@@ -125,53 +131,97 @@ function mailchecker_conf() {
   return $form;
 }
 
+/**
+ * Implements _validate function for mailchecker_conf
+ * @param type $form
+ * @param type $form_state 
+ */
+function mailchecker_conf_validate($form, &$form_state) {
+  //Set error if path is
+  if (!file_exists(_helper_get_base_dir() . $form_state['values']['path'])) {
+    form_set_error('path', t('Source path was not found.'));
+  }
+  
+  if (count(explode(',', str_replace(' ', '', $form_state['values']['domains']))) == 0) {
+    form_set_error('domains', 'You must include at least one domain.');
+  }
+}
+
+/**
+ * Implements _submit function for mailchecker_conf
+ * @param type $form
+ * @param type $form_state 
+ */
 function mailchecker_conf_submit($form, &$form_state) {
   // Save general settings
   $conf = array();
+  
+  $conf['path'] = $form_state['values']['path'];
 
-  // Set error if path is invalid
-  if(!file_exists(DRUPAL_ROOT.$form_state['input']['path'])) drupal_set_message('Source path was not found.', 'error');
-  $conf['path'] = $form_state['input']['path'];
-
-  $conf['domains'] = explode(',', str_replace(' ', '', $form_state['input']['domains']));
-  //variable_set('mailchecker_onlogin', $form_state['input']['login']);  
-  $conf['message'] = $form_state['input']['message'];
-  $conf['webform'] = $form_state['input']['webform'];
-  $conf['show_type'] = $form_state['input']['show_type'];
+  $conf['domains'] = explode(',', str_replace(' ', '', $form_state['values']['domains']));
+  //variable_set('mailchecker_onlogin', $form_state['values']['login']);  
+  $conf['message'] = $form_state['values']['message'];
+  
+  if (array_key_exists('webform', $form_state['values'])) {
+    $conf['webform'] = $form_state['values']['webform'];
+  } else {
+    $conf['webform'] = 0; //default value
+  }
+  
+  $conf['show_type'] = $form_state['values']['show_type'];
 
   // Save gestures
-  $conf['lock'] = $form_state['input']['lock'];
-  $conf['shake'] = $form_state['input']['shake'];
+  $conf['lock'] = $form_state['values']['lock'];
+  $conf['shake'] = $form_state['values']['shake'];
 
   // Save register form settings
-  $conf['register']['show'] = $form_state['input']['register'];
-  $conf['register']['lock'] = $form_state['input']['reglock'];
+  $conf['register']['show'] = $form_state['values']['register'];
+  $conf['register']['lock'] = $form_state['values']['reglock'];
 
   variable_set('mailchecker_conf', $conf);
   drupal_set_message("Configuration saved", "status");
 }
 
+/**
+ * Load 
+ * @staticvar boolean $loaded
+ * @param type $show_in_des
+ * @param type $lock 
+ */
 function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
   static $loaded = FALSE;
 
   if(!$loaded) {
     // Load Files
-    drupal_add_js(variable_get('mailchecker_path'));
-    drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/mailchecker.js');
-    drupal_add_css(drupal_get_path('module', 'mailchecker') . '/css/mailchecker.css');
+    $conf = variable_get('mailchecker_conf', array());
+    
+    if (file_exists($conf['path'])) {
+      drupal_add_js($conf['path']);
+      drupal_add_js(drupal_get_path('module', 'mailchecker') . '/js/mailchecker.js');
+      drupal_add_css(drupal_get_path('module', 'mailchecker') . '/css/mailchecker.css');
 
-    // Inject settings
-    $conf = variable_get('mailchecker_conf');
-    $settings = array('mailcheck' => array(
-      'domains' => $conf['domains'],
-      'message' => $conf['message'],
-      'show_in_des' => $show_in_des,
-      'lock' => $lock,
-      'shake' => $conf['shake'],
-    ));
+      // Inject settings
+      $conf = variable_get('mailchecker_conf', array());
+      $settings = array('mailcheck' => array(
+        'domains' => $conf['domains'],
+        'message' => $conf['message'],
+        'show_in_des' => $show_in_des,
+        'lock' => $lock,
+        'shake' => $conf['shake'],
+      ));
 
-    drupal_add_js($settings, 'setting');
+      drupal_add_js($settings, 'setting');
+    }
   }
+}
+
+/**
+ * return an array with all the fields that are not an array
+ * @author Jesús Sánchez Balsera <jsbalsera@gmail.com>
+ * @return string physical directory where Drupal is installed
+ */
+function _helper_get_base_dir() {
+  return (str_replace('//', '/', $_SERVER['DOCUMENT_ROOT'] . base_path()));
 }
 
 /**
@@ -181,7 +231,7 @@ function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
 function mailchecker_form_alter(&$form, &$form_state, $form_id) {
   
   // Load config
-  $conf = variable_get('mailchecker_conf');
+  $conf = variable_get('mailchecker_conf', array());
 
   // Check if we are on a webform email field
   $formInArr = explode("_", $form_id);
@@ -207,16 +257,16 @@ function mailchecker_form_alter(&$form, &$form_state, $form_id) {
   }    
 
   // Check if we are on the right form, also check for settings 
-  if($form_id == 'user_register_form' && $conf['register']['show']) {
+  if($form_id == 'user_register' && $conf['register']['show']) {
 
-    $form['account']['mail']['#attributes'] = array('class' => array('mailcheck'));
+    $form['mail']['#attributes'] = array('class' => 'mailcheck');
     $show_type = $conf['show_type'];
     if($show_type == 0) {
-      $form['account']['mail']['#prefix'] = '<div class="mc-prefix mailcheck-action"></div>';
+      $form['mail']['#prefix'] = '<div class="mc-prefix mailcheck-action"></div>';
     }elseif($show_type == 1) {
       $in_des = TRUE;
     }else {
-      $form['account']['mail']['#suffix'] = '<div class="mc-suffix mailcheck-action"></div>';
+      $form['mail']['#suffix'] = '<div class="mc-suffix mailcheck-action"></div>';
     }
 
     load_mailcheck(isset($in_des), $conf['register']['lock']);
