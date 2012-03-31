@@ -88,7 +88,13 @@ function mailchecker_conf() {
     '#default_value' => $default_conf['lock'],
   );
 
-
+  $form['general']['gestures']['shake'] = array(
+    '#title' => t('Shake'),
+    '#description' => t('Shake the message, on typo.'),
+    '#type' => 'checkbox',
+    '#default_value' => $default_conf['shake'],
+  );
+  
   $form['regform'] = array(
     '#title' => t('Register form'),
     '#type' => 'fieldset',
@@ -166,6 +172,7 @@ function mailchecker_conf_submit($form, &$form_state) {
 
   // Save gestures
   $conf['lock'] = $form_state['values']['lock'];
+  $conf['shake'] = $form_state['values']['shake'];
 
   // Save register form settings
   $conf['register']['show'] = $form_state['values']['register'];
@@ -199,7 +206,8 @@ function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
         'domains' => $conf['domains'],
         'message' => $conf['message'],
         'show_in_des' => $show_in_des,
-        'lock' => $lock
+        'lock' => $lock,
+        'shake' => $conf['shake'],
       ));
 
       drupal_add_js($settings, 'setting');

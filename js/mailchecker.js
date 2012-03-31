@@ -33,6 +33,11 @@ Drupal.behaviors.mailchecker = function(context) {
         message = Drupal.settings.mailcheck.message;
         $(cfAction).html(message.replace('[corrected-mail]', '<span class="corrected-mail">' + suggestion.full + '</span>'));
 
+        // Add shake gesture 	  	        
+        if(Drupal.settings.mailcheck.shake) {
+          skaheThatShit(cfAction);
+        }
+
         $(cfAction).find('.corrected-mail').click(function() {
           // Remove message 
           $(cfAction).html("");
@@ -63,3 +68,39 @@ Drupal.behaviors.mailchecker = function(context) {
   });
   
 };
+
+function skaheThatShit(el) {  	  	
+  // First set attributes	  	
+  $(el).css({	  	
+    'position' : 'relative',	  	
+    'left' : '0px'	  	
+  });	  	
+	  	
+  // Then animate	  	
+  $(el).animate({
+    opacity: 0.25
+  }, 100);
+	  	
+  $(el).animate({
+    left: '-=10'
+  },100); 
+	  	
+  $(el).animate({
+    left: '+=20'
+  },100);
+	  	
+  $(el).animate({
+    left: '-=20'
+  },100);
+	  	
+  $(el).animate({
+    left: '+=10'
+  },100);
+	  	
+  $(el).animate({
+    opacity: 1.00
+  }, 170);
+	  	
+} 
+	  	
+	  	
