@@ -192,7 +192,7 @@ function mailchecker_form_alter(&$form, &$form_state, $form_id) {
   // Check if we are on a webform email field
   $formInArr = explode("_", $form_id);
 
-  if($formInArr[0] == 'webform' && $conf['webform']) {
+  if($formInArr[0] == 'webform' && $formInArr[1] == 'client' && $conf['webform']) {
 
     foreach($form['submitted'] as &$newform) {
       
