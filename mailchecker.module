@@ -19,6 +19,10 @@ function mailchecker_menu() {
   return $items;
 }
 
+/**
+ * Implements configuration form
+ */
+
 function mailchecker_conf() {
   $default_conf = variable_get('mailchecker_conf');
   $form = array();
@@ -125,6 +129,10 @@ function mailchecker_conf() {
   return $form;
 }
 
+/**
+ * Implements _submit function for mailchecker_conf
+ */
+
 function mailchecker_conf_submit($form, &$form_state) {
   // Save general settings
   $conf = array();
@@ -153,6 +161,13 @@ function mailchecker_conf_submit($form, &$form_state) {
   variable_set('mailchecker_conf', $conf);
   drupal_set_message("Configuration saved", "status");
 }
+
+/**
+ * Load 
+ * @staticvar boolean $loaded
+ * @param type $show_in_des
+ * @param type $lock 
+ */
 
 function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
   static $loaded = FALSE;
