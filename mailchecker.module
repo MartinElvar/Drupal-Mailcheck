@@ -111,16 +111,6 @@ function mailchecker_conf() {
     '#default_value' => $default_conf['register']['lock'],
   );
 
-  /****
-  * This needs some investigations first, on standby.
-  $form['where']['login'] = array(
-    '#title' => t('Check email on login form'),
-    '#description' => t('In case you use email instead of username, for login.'),
-    '#type' => 'checkbox',
-    '#default_value' => variable_get('mailchecker_onlogin'),
-  );
-  ****/
-
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('save'),
