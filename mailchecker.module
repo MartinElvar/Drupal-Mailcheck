@@ -120,20 +120,34 @@ function mailchecker_conf() {
 }
 
 /**
- * Implements _submit function for mailchecker_conf
+ * Implements _validate for mailchecker_conf
+ * @param type $form
+ * @param type $form_state
+ */
+
+function mailchecker_conf_validate($form, &$form_state) {
+  // Set error if path is invalid
+  if(!valid_url(base_path() . $form_state['input']['path'])) { 
+    form_set_error('path', t('Source path was not found.'));
+  }
+  // Set error if none domains is set
+  if(count(explode(',', str_replace(' ', '', $form_state['input']['domains']))) == 1) {
+    form_set_error('domains', 'You must include at least one domain.');
+  }
+}
+
+
+/**
+ * Implements _submit for mailchecker_conf
+ * @param type $form
+ * @paramtype $form_state
  */
 
 function mailchecker_conf_submit($form, &$form_state) {
   // Save general settings
   $conf = array();
 
-  // Set error if path is invalid
-  if(!valid_url(base_path() . $form_state['input']['path'])) { 
-    drupal_set_message('Source path was not found.', 'error'); 
-  }
-
   $conf['path'] = $form_state['input']['path'];
-
   $conf['domains'] = explode(',', str_replace(' ', '', $form_state['input']['domains']));
   //variable_set('mailchecker_onlogin', $form_state['input']['login']);  
   $conf['message'] = $form_state['input']['message'];
