@@ -1,38 +1,40 @@
 <?php
 
-/***
- * Implements hook_install
+/**
+ * @file
+ * Install default settings
  */
 
+/**
+ * Implements hook_install().
+ */
 function mailchecker_install() {
-  
+
   $conf = array();
 
-  // General 
+  // General.
   $conf['path'] = 'sites/all/libraries/mailcheck/jquery.mailcheck.min.js';
-  $conf['domains'] = array('yahoo.com, google.com, hotmail.com, gmail.com, me.com, aol.com, mac.com, live.com, comcast.net, googlemail.com, msn.com, hotmail.co.uk, yahoo.co.uk, facebook.com, verizon.net, sbcglobal.net, att.net, gmx.com, mail.com'); 
+  $conf['domains'] = array('yahoo.com, google.com, hotmail.com, gmail.com, me.com, aol.com, mac.com, live.com, comcast.net, googlemail.com, msn.com, hotmail.co.uk, yahoo.co.uk, facebook.com, verizon.net, sbcglobal.net, att.net, gmx.com, mail.com');
   $conf['message'] = 'Did you mean, [corrected-mail] ?';
   $conf['webform'] = 0;
   $conf['show_type'] = 1;
 
-  // Gestures
-  $conf['lock'] = FALSE; 
+  // Gestures.
+  $conf['lock'] = FALSE;
   $conf['shake'] = FALSE;
 
-  // Register form
-  $conf['register']['show'] = 1; 
+  // Register form.
+  $conf['register']['show'] = 1;
   $conf['register']['lock'] = FALSE;
 
-  // Save settings 
+  // Save settings.
   variable_set('mailchecker_conf', $conf);
 }
 
 
-/***
- * Implements hook_uninstall
+/**
+ * Implements hook_uninstall().
  */
-
 function mailchecker_uninstall() {
   variable_del('mailchecker_conf');
 }
-
