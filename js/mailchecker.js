@@ -12,7 +12,12 @@ jQuery(function($) {
 
   $('.mailcheck').blur(function() {
     var currentform = this;
-    var cfAction = $(currentform).parent().find('.mailcheck-action');
+    if(Drupal.settings.mailcheck.show_in_des == true) {
+      var cfAction = $(currentform).parent().find('.mailcheck-action');
+    }
+    else {
+      var cfAction = $(currentform).parents('form').find('.mailcheck-action');
+    }
 
     $(this).mailcheck({
       domains: domains,
