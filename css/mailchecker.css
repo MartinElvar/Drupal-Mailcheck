@@ -9,8 +9,8 @@
 .description > .mailcheck-action > .corrected-mail {
   color: #3458b9;
   cursor: pointer;
-  font-style: italic;
   font-size: inherit;
+  font-style: italic;
   font-weight: bold;
 }
 
@@ -26,7 +26,7 @@
 .mc-prefix > .corrected-mail {
   color: #3458b9;
   cursor: pointer;
-  font-style: italic;
   font-size: inherit;
+  font-style: italic;
   font-weight: bold;
 }

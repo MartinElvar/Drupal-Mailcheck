@@ -183,7 +183,7 @@ function mailchecker_conf_submit($form, &$form_state) {
  * @static var boolean $loaded
  *   Boolean makes sure scripts are only loaded once
  */
-function load_mailcheck($show_in_des = FALSE, $lock = FALSE) {
+function mailchecker_load($show_in_des = FALSE, $lock = FALSE) {
   static $loaded = FALSE;
 
   if (!$loaded) {
@@ -242,7 +242,7 @@ function mailchecker_form_alter(&$form, &$form_state, $form_id) {
         $newform['#suffix'] = '<div class="mc-suffix mailcheck-action"></div>';
       }
 
-      load_mailcheck(isset($in_des), $conf['register']['lock']);
+      mailchecker_load(isset($in_des), $conf['register']['lock']);
     }
   }
 
@@ -261,6 +261,6 @@ function mailchecker_form_alter(&$form, &$form_state, $form_id) {
       $form['account']['mail']['#suffix'] = '<div class="mc-suffix mailcheck-action"></div>';
     }
 
-    load_mailcheck(isset($in_des), $conf['register']['lock']);
+    mailchecker_load(isset($in_des), $conf['register']['lock']);
   }
 }
