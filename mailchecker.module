@@ -84,7 +84,7 @@ function mailchecker_conf() {
 
   $form['general']['gestures']['lock'] = array(
     '#title' => t('Submit Lock'),
-    '#description' => t('Locks the submit button for one second, on typo.'),
+    '#description' => t('Locks the submit button for two second, on typo.'),
     '#type' => 'checkbox',
     '#default_value' => $default_conf['lock'],
   );
@@ -109,7 +109,7 @@ function mailchecker_conf() {
 
   $form['regform']['reglock'] = array(
     '#title' => t('Submit Lock'),
-    '#description' => t('Disable submit button for two seconds, when a typo occurs'),
+    '#description' => t('If you only want lock on the register form, remember to uncheck the one in gestures.'),
     '#type' => 'checkbox',
     '#default_value' => $default_conf['register']['lock'],
   );
