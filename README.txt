@@ -8,9 +8,11 @@ Now also supports the Webform module!
 What is it good for?
 -------------------------
 
-Mailchecker implements mailcheck.js (https://github.com/Kicksend/mailcheck) with Drupals forms, primarily the Register form.
+Mailchecker implements mailcheck.js (https://github.com/Kicksend/mailcheck)
+with Drupals forms, primarily the Register form.
 
-Simply put, Mailchecker checks the email form for typos, say the user writes in user@gmaul.com Mailchecker will suggest user@gmail.com.
+Simply put, Mailchecker checks the email form for typos, say the user writes
+in user@gmaul.com Mailchecker will suggest user@gmail.com.
 
 Kicksend reports of a 50% decrease in sign up confirmation email bounces.
 http://blog.kicksend.com/how-we-decreased-sign-up-confirmation-email-b
@@ -21,7 +23,8 @@ http://dev11.reload.dk/mailchecker/
 Drupal features
 ------------------------
 
-Mailchecker is shipped with a handy configuration panel, which lets you do awesome stuff like..
+Mailchecker is shipped with a handy configuration panel, which lets you do
+awesome stuff like..
 
 - Mailchecker on webform email fields
 - Mailchecker on Registerform
@@ -34,8 +37,10 @@ Installation
 -----------------------
 
 1. Download and enable the module
-2. Download the latest version of mailcheck.js (https://github.com/Kicksend/mailcheck/tree/master/src)
-3. Place it in you Drupal installation folder, default path is "/sites/all/libraries/mailcheck/jquery.mailcheck.min.js"
+2. Download the latest version of mailcheck.js
+(https://github.com/Kicksend/mailcheck/tree/master/src)
+3. Place it in you Drupal installation folder, default path is 
+"/sites/all/libraries/mailcheck/jquery.mailcheck.min.js"
 4. Configure at /admin/conf/mailchecker
 5. See magic happen!
 
