@@ -109,7 +109,7 @@ function mailchecker_conf() {
 
   $form['regform']['reglock'] = array(
     '#title' => t('Submit Lock'),
-    '#description' => t('Disable submit button for one second, when a typo occurs'),
+    '#description' => t('Disable submit button for two seconds, when a typo occurs'),
     '#type' => 'checkbox',
     '#default_value' => $default_conf['register']['lock'],
   );
