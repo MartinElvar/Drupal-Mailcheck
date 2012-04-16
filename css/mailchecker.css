@@ -7,11 +7,11 @@
 }
 
 .description > .mailcheck-action > .corrected-mail {
-  font-style: italic;
-  font-weight: bold;
   color: #3458b9;
-  font-size: inherit;
   cursor: pointer;
+  font-style: italic;
+  font-size: inherit;
+  font-weight: bold;
 }
 
 /* Prefix & Suffix */
@@ -24,10 +24,9 @@
 
 .mc-suffix > .corrected-mail,
 .mc-prefix > .corrected-mail {
-  font-style: italic;
-  font-weight: bold;
   color: #3458b9;
-  font-size: inherit;
   cursor: pointer;
+  font-style: italic;
+  font-size: inherit;
+  font-weight: bold;
 }
-

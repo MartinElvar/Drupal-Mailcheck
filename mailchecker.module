@@ -125,9 +125,9 @@ function mailchecker_conf() {
 /**
  * Implements _validate for mailchecker_conf
  *
- * @param type $form
+ * @param array $form
  *   Array containing structure of the form
- * @param type $form_state
+ * @param array $form_state
  *   Array containing info about the form state
  */
 function mailchecker_conf_validate($form, &$form_state) {
@@ -145,9 +145,9 @@ function mailchecker_conf_validate($form, &$form_state) {
 /**
  * Implements _submit for mailchecker_conf
  *
- * @param type $form
+ * @param array $form
  *   Array containing structure of the form
- * @param type $form_state
+ * @param array $form_state
  *   Array containing info about the form state
  */
 function mailchecker_conf_submit($form, &$form_state) {
@@ -175,9 +175,9 @@ function mailchecker_conf_submit($form, &$form_state) {
 /**
  * Load
  *
- * @param type $show_in_des
+ * @param boolean $show_in_des
  *   Boolean determine if the notice message should be shown in form description
- * @param type $lock
+ * @param boolean $lock
  *   Boolean determine if the form submit should be locked on typo
  *
  * @static var boolean $loaded
