@@ -137,7 +137,7 @@ function mailchecker_conf_validate($form, &$form_state) {
   }
   // Set error if none domains is set.
   if (count(explode(',', str_replace(' ', '', $form_state['input']['domains']))) == 1) {
-    form_set_error('domains', 'You must include at least one domain.');
+    form_set_error('domains', t('You must include at least one domain.'));
   }
 }
 
@@ -169,7 +169,7 @@ function mailchecker_conf_submit($form, &$form_state) {
   $conf['register']['lock'] = $form_state['input']['reglock'];
 
   variable_set('mailchecker_conf', $conf);
-  drupal_set_message("Configuration saved", "status");
+  drupal_set_message(t('Configuration saved'), 'status');
 }
 
 /**
