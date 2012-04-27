@@ -69,7 +69,7 @@ function mailchecker_conf() {
     '#type' => 'select',
     '#options' => array(
       0 => 'Prefix',
-      1 => 'Desciprion',
+      1 => 'Description',
       2 => 'Suffix',
     ),
     '#default_value' => $default_conf['show_type'],
