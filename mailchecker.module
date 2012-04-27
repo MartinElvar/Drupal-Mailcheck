@@ -9,17 +9,15 @@
  * Implements hook_menu().
  */
 function mailchecker_menu() {
-
   $items = array();
-
-  $items['admin/config/mailchecker'] = array(
-    'type' => MENU_CALLBACK,
+  $items['admin/config/people/mailchecker'] = array(
     'title' =>  'Mailchecker configuration',
+    'description' => t('Configure behavior of Mailchecker'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mailchecker_conf'),
-    'access arguments' => array('access administration page'),
+    'access arguments' => array('administer site configuration'),
+    'weight' => 100,
   );
-
   return $items;
 }
 
