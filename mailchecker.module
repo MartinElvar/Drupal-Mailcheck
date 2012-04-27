@@ -155,7 +155,9 @@ function mailchecker_conf_submit($form, &$form_state) {
   $conf['path'] = $form_state['input']['path'];
   $conf['domains'] = explode(',', str_replace(' ', '', $form_state['input']['domains']));
   $conf['message'] = $form_state['input']['message'];
-  $conf['webform'] = $form_state['input']['webform'];
+  if (module_exists('webform')) {
+    $conf['webform'] = $form_state['input']['webform'];
+  }
   $conf['show_type'] = $form_state['input']['show_type'];
 
   // Save gestures.
