@@ -28,7 +28,6 @@ awesome stuff like..
 
 - Mailchecker on webform email fields
 - Mailchecker on Registerform
-- Mailchecker in Fields
 - Customable notice message
 - Adding new domain support
 - Gestures on typos
