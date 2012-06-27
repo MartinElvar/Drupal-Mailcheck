@@ -58,7 +58,7 @@ function mailcheck_conf() {
 
   if (module_exists('webform')) {
     $form['general']['webform'] = array(
-      '#title' => t('Mailchecker on webform'),
+      '#title' => t('Mailcheck on webform'),
       '#type' => 'checkbox',
       '#default_value' => $default_conf['webform'],
     );
@@ -100,7 +100,7 @@ function mailcheck_conf() {
   );
 
   $form['regform']['register'] = array(
-    '#title' => t('Mailchecker on register form'),
+    '#title' => t('Mailcheck on register form'),
     '#type' => 'checkbox',
     '#default_value' => $default_conf['register']['show'],
   );
