@@ -157,6 +157,8 @@ function mailcheck_conf_submit($form, &$form_state) {
   $conf['message'] = $form_state['values']['message'];
   if (module_exists('webform')) {
     $conf['webform'] = $form_state['values']['webform'];
+  }else {
+    $conf['webform'] = 0; // We still need to set the value to 0, or the var will get erased.
   }
   $conf['show_type'] = $form_state['values']['show_type'];
 
