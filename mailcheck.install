@@ -8,7 +8,7 @@
 /**
  * Implements hook_install().
  */
-function mailchecker_install() {
+function mailcheck_install() {
 
   $conf = array();
 
@@ -28,13 +28,13 @@ function mailchecker_install() {
   $conf['register']['lock'] = FALSE;
 
   // Save settings.
-  variable_set('mailchecker_conf', $conf);
+  variable_set('mailcheck_conf', $conf);
 }
 
 
 /**
  * Implements hook_uninstall().
  */
-function mailchecker_uninstall() {
-  variable_del('mailchecker_conf');
+function mailcheck_uninstall() {
+  variable_del('mailcheck_conf');
 }
