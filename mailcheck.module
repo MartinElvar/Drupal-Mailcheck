@@ -241,7 +241,7 @@ function mailcheck_form_alter(&$form, &$form_state, $form_id) {
         $newform['#suffix'] = '<div class="mc-suffix mailcheck-action"></div>';
       }
 
-      mailcheck_load(isset($in_des), $conf['register']['lock']);
+      mailcheck_load(isset($in_des), $conf['lock']);
     }
   }
 
