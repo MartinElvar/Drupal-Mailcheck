@@ -188,7 +188,7 @@ function mailcheck_load($show_in_des = FALSE, $lock = FALSE) {
     $conf = variable_get('mailcheck_conf');
     // Load Files.
     drupal_add_js(base_path() . $conf['path']);
-    drupal_add_js(drupal_get_path('module', 'mailcheck') . '/js/mailcheck.js');
+    drupal_add_js(drupal_get_path('module', 'mailcheck') . '/js/mailcheck_load.js');
     drupal_add_css(drupal_get_path('module', 'mailcheck') . '/css/mailcheck.css');
 
     // Inject settings.
