@@ -152,21 +152,21 @@ function mailcheck_conf_submit($form, &$form_state) {
   // Save general settings.
   $conf = array();
 
-  $conf['path'] = $form_state['input']['path'];
+  $conf['path'] = $form_state['values']['path'];
   $conf['domains'] = explode(',', str_replace(' ', '', $form_state['input']['domains']));
-  $conf['message'] = $form_state['input']['message'];
+  $conf['message'] = $form_state['values']['message'];
   if (module_exists('webform')) {
-    $conf['webform'] = $form_state['input']['webform'];
+    $conf['webform'] = $form_state['values']['webform'];
   }
-  $conf['show_type'] = $form_state['input']['show_type'];
+  $conf['show_type'] = $form_state['values']['show_type'];
 
   // Save gestures.
-  $conf['lock'] = $form_state['input']['lock'];
-  $conf['shake'] = $form_state['input']['shake'];
+  $conf['lock'] = $form_state['values']['lock'];
+  $conf['shake'] = $form_state['values']['shake'];
 
   // Save register form settings.
-  $conf['register']['show'] = $form_state['input']['register'];
-  $conf['register']['lock'] = $form_state['input']['reglock'];
+  $conf['register']['show'] = $form_state['values']['register'];
+  $conf['register']['lock'] = $form_state['values']['reglock'];
 
   variable_set('mailcheck_conf', $conf);
   drupal_set_message(t('Configuration saved'), 'status');
