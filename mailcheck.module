@@ -130,11 +130,11 @@ function mailcheck_conf() {
  */
 function mailcheck_conf_validate($form, &$form_state) {
   // Set error if path is invalid.
-  if (!valid_url(base_path() . $form_state['input']['path'])) {
+  if (!valid_url(base_path() . $form_state['values']['path'])) {
     form_set_error('path', t('Source path was not found.'));
   }
   // Set error if none domains is set.
-  if (count(explode(',', str_replace(' ', '', $form_state['input']['domains']))) == 1) {
+  if (count(explode(',', str_replace(' ', '', $form_state['values']['domains']))) == 1) {
     form_set_error('domains', t('You must include at least one domain.'));
   }
 }
@@ -153,7 +153,7 @@ function mailcheck_conf_submit($form, &$form_state) {
   $conf = array();
 
   $conf['path'] = $form_state['values']['path'];
-  $conf['domains'] = explode(',', str_replace(' ', '', $form_state['input']['domains']));
+  $conf['domains'] = explode(',', str_replace(' ', '', $form_state['values']['domains']));
   $conf['message'] = $form_state['values']['message'];
   if (module_exists('webform')) {
     $conf['webform'] = $form_state['values']['webform'];
