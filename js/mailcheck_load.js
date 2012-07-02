@@ -39,7 +39,7 @@
 
             // Add shake gesture.
             if(Drupal.settings.mailcheck.shake) {
-              skaheThatShit(cfAction);
+              shakeEffect(cfAction);
             }
 
             $(cfAction).find('.corrected-mail').click(function() {
@@ -56,7 +56,7 @@
         });
       });
 
-      function skaheThatShit(el) {
+      function shakeEffect(el) {
 
         // First set attributes.
         $(el).css({
